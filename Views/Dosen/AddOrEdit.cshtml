@@ -1,0 +1,32 @@
+﻿@model Akademik.Models.DOSEN
+@{
+    Layout = null;
+}
+
+@using (Html.BeginForm("AddOrEdit", "Dosen", FormMethod.Post, new { onsubmit = "return SubmitForm(this)" }))
+{
+    <div class="form-group">
+        @Html.LabelFor(model => model.NIP, new { @class = "control-label" })
+        @Html.EditorFor(model => model.NIP, new { htmlAttributes = new { @class = "form-control", required = "required", maxlength = "12" } })
+        @Html.ValidationMessageFor(model => model.NIP)
+        @if (Model.NIP != null)
+        {
+            <input type="hidden" name="hm" id="hm" value="1" />
+        }
+        else
+        {
+            <input type="hidden" name="hm" id="hm" value="0" />
+        }
+
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.NAMA_DOSEN, new { @class = "control-label" })
+        @Html.EditorFor(model => model.NAMA_DOSEN, new { htmlAttributes = new { @class = "form-control", required = "required", maxlength = "25" } })
+        @Html.ValidationMessageFor(model => model.NAMA_DOSEN)
+    </div>
+    
+    <div class="form-group">
+        <input type="submit" value="Submit" class="btn btn-primary" />
+        <input type="reset" value="Reset" class="btn" />
+    </div>
+}

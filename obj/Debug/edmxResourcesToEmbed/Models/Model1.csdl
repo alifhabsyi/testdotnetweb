@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AKADEMIKModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="DOSEN">
+    <Key>
+      <PropertyRef Name="NIP" />
+    </Key>
+    <Property Name="NIP" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NAMA_DOSEN" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="MAHASISWA">
+    <Key>
+      <PropertyRef Name="NIM" />
+    </Key>
+    <Property Name="NIM" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NAMA_MHS" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="TGL_LAHIR" Type="DateTime" Precision="0" />
+    <Property Name="ALAMAT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="JENIS_KELAMIN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="MATAKULIAH">
+    <Key>
+      <PropertyRef Name="KODE_MK" />
+    </Key>
+    <Property Name="KODE_MK" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NAMA_MK" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="SKS" Type="Int32" />
+  </EntityType>
+  <EntityType Name="PERKULIAHAN">
+    <Key>
+      <PropertyRef Name="NIM" />
+      <PropertyRef Name="KODE_MK" />
+    </Key>
+    <Property Name="NIM" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="KODE_MK" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NIP" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+    <Property Name="NILAI" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+  </EntityType>
+  <EntityContainer Name="DBModels" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="DOSENs" EntityType="Self.DOSEN" />
+    <EntitySet Name="MAHASISWAs" EntityType="Self.MAHASISWA" />
+    <EntitySet Name="MATAKULIAHs" EntityType="Self.MATAKULIAH" />
+    <EntitySet Name="PERKULIAHANs" EntityType="Self.PERKULIAHAN" />
+  </EntityContainer>
+</Schema>

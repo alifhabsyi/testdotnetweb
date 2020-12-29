@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="AKADEMIKModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DOSEN">
+          <Key>
+            <PropertyRef Name="NIP" />
+          </Key>
+          <Property Name="NIP" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="NAMA_DOSEN" Type="varchar" MaxLength="25" />
+        </EntityType>
+        <EntityType Name="MAHASISWA">
+          <Key>
+            <PropertyRef Name="NIM" />
+          </Key>
+          <Property Name="NIM" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="NAMA_MHS" Type="varchar" MaxLength="25" />
+          <Property Name="TGL_LAHIR" Type="date" />
+          <Property Name="ALAMAT" Type="varchar" MaxLength="50" />
+          <Property Name="JENIS_KELAMIN" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="MATAKULIAH">
+          <Key>
+            <PropertyRef Name="KODE_MK" />
+          </Key>
+          <Property Name="KODE_MK" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="NAMA_MK" Type="varchar" MaxLength="20" />
+          <Property Name="SKS" Type="int" />
+        </EntityType>
+        <EntityType Name="PERKULIAHAN">
+          <Key>
+            <PropertyRef Name="NIM" />
+            <PropertyRef Name="KODE_MK" />
+          </Key>
+          <Property Name="NIM" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="KODE_MK" Type="varchar" MaxLength="7" Nullable="false" />
+          <Property Name="NIP" Type="varchar" MaxLength="12" />
+          <Property Name="NILAI" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityContainer Name="AKADEMIKModelStoreContainer">
+          <EntitySet Name="DOSEN" EntityType="Self.DOSEN" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MAHASISWA" EntityType="Self.MAHASISWA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MATAKULIAH" EntityType="Self.MATAKULIAH" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PERKULIAHAN" EntityType="Self.PERKULIAHAN" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AKADEMIKModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="DOSEN">
+          <Key>
+            <PropertyRef Name="NIP" />
+          </Key>
+          <Property Name="NIP" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NAMA_DOSEN" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="MAHASISWA">
+          <Key>
+            <PropertyRef Name="NIM" />
+          </Key>
+          <Property Name="NIM" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NAMA_MHS" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="TGL_LAHIR" Type="DateTime" Precision="0" />
+          <Property Name="ALAMAT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="JENIS_KELAMIN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="MATAKULIAH">
+          <Key>
+            <PropertyRef Name="KODE_MK" />
+          </Key>
+          <Property Name="KODE_MK" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NAMA_MK" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="SKS" Type="Int32" />
+        </EntityType>
+        <EntityType Name="PERKULIAHAN">
+          <Key>
+            <PropertyRef Name="NIM" />
+            <PropertyRef Name="KODE_MK" />
+          </Key>
+          <Property Name="NIM" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="KODE_MK" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NIP" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="NILAI" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="DBModels" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DOSENs" EntityType="Self.DOSEN" />
+          <EntitySet Name="MAHASISWAs" EntityType="Self.MAHASISWA" />
+          <EntitySet Name="MATAKULIAHs" EntityType="Self.MATAKULIAH" />
+          <EntitySet Name="PERKULIAHANs" EntityType="Self.PERKULIAHAN" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AKADEMIKModelStoreContainer" CdmEntityContainer="DBModels">
+          <EntitySetMapping Name="DOSENs">
+            <EntityTypeMapping TypeName="AKADEMIKModel.DOSEN">
+              <MappingFragment StoreEntitySet="DOSEN">
+                <ScalarProperty Name="NIP" ColumnName="NIP" />
+                <ScalarProperty Name="NAMA_DOSEN" ColumnName="NAMA_DOSEN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MAHASISWAs">
+            <EntityTypeMapping TypeName="AKADEMIKModel.MAHASISWA">
+              <MappingFragment StoreEntitySet="MAHASISWA">
+                <ScalarProperty Name="NIM" ColumnName="NIM" />
+                <ScalarProperty Name="NAMA_MHS" ColumnName="NAMA_MHS" />
+                <ScalarProperty Name="TGL_LAHIR" ColumnName="TGL_LAHIR" />
+                <ScalarProperty Name="ALAMAT" ColumnName="ALAMAT" />
+                <ScalarProperty Name="JENIS_KELAMIN" ColumnName="JENIS_KELAMIN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MATAKULIAHs">
+            <EntityTypeMapping TypeName="AKADEMIKModel.MATAKULIAH">
+              <MappingFragment StoreEntitySet="MATAKULIAH">
+                <ScalarProperty Name="KODE_MK" ColumnName="KODE_MK" />
+                <ScalarProperty Name="NAMA_MK" ColumnName="NAMA_MK" />
+                <ScalarProperty Name="SKS" ColumnName="SKS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PERKULIAHANs">
+            <EntityTypeMapping TypeName="AKADEMIKModel.PERKULIAHAN">
+              <MappingFragment StoreEntitySet="PERKULIAHAN">
+                <ScalarProperty Name="NIM" ColumnName="NIM" />
+                <ScalarProperty Name="KODE_MK" ColumnName="KODE_MK" />
+                <ScalarProperty Name="NIP" ColumnName="NIP" />
+                <ScalarProperty Name="NILAI" ColumnName="NILAI" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

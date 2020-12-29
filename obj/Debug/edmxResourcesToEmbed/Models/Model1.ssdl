@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AKADEMIKModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="DOSEN">
+    <Key>
+      <PropertyRef Name="NIP" />
+    </Key>
+    <Property Name="NIP" Type="varchar" MaxLength="12" Nullable="false" />
+    <Property Name="NAMA_DOSEN" Type="varchar" MaxLength="25" />
+  </EntityType>
+  <EntityType Name="MAHASISWA">
+    <Key>
+      <PropertyRef Name="NIM" />
+    </Key>
+    <Property Name="NIM" Type="varchar" MaxLength="9" Nullable="false" />
+    <Property Name="NAMA_MHS" Type="varchar" MaxLength="25" />
+    <Property Name="TGL_LAHIR" Type="date" />
+    <Property Name="ALAMAT" Type="varchar" MaxLength="50" />
+    <Property Name="JENIS_KELAMIN" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="MATAKULIAH">
+    <Key>
+      <PropertyRef Name="KODE_MK" />
+    </Key>
+    <Property Name="KODE_MK" Type="varchar" MaxLength="6" Nullable="false" />
+    <Property Name="NAMA_MK" Type="varchar" MaxLength="20" />
+    <Property Name="SKS" Type="int" />
+  </EntityType>
+  <EntityType Name="PERKULIAHAN">
+    <Key>
+      <PropertyRef Name="NIM" />
+      <PropertyRef Name="KODE_MK" />
+    </Key>
+    <Property Name="NIM" Type="varchar" MaxLength="9" Nullable="false" />
+    <Property Name="KODE_MK" Type="varchar" MaxLength="7" Nullable="false" />
+    <Property Name="NIP" Type="varchar" MaxLength="12" />
+    <Property Name="NILAI" Type="char" MaxLength="1" />
+  </EntityType>
+  <EntityContainer Name="AKADEMIKModelStoreContainer">
+    <EntitySet Name="DOSEN" EntityType="Self.DOSEN" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MAHASISWA" EntityType="Self.MAHASISWA" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MATAKULIAH" EntityType="Self.MATAKULIAH" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PERKULIAHAN" EntityType="Self.PERKULIAHAN" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

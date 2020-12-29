@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="AKADEMIKModelStoreContainer" CdmEntityContainer="DBModels">
+    <EntitySetMapping Name="DOSENs">
+      <EntityTypeMapping TypeName="AKADEMIKModel.DOSEN">
+        <MappingFragment StoreEntitySet="DOSEN">
+          <ScalarProperty Name="NIP" ColumnName="NIP" />
+          <ScalarProperty Name="NAMA_DOSEN" ColumnName="NAMA_DOSEN" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MAHASISWAs">
+      <EntityTypeMapping TypeName="AKADEMIKModel.MAHASISWA">
+        <MappingFragment StoreEntitySet="MAHASISWA">
+          <ScalarProperty Name="NIM" ColumnName="NIM" />
+          <ScalarProperty Name="NAMA_MHS" ColumnName="NAMA_MHS" />
+          <ScalarProperty Name="TGL_LAHIR" ColumnName="TGL_LAHIR" />
+          <ScalarProperty Name="ALAMAT" ColumnName="ALAMAT" />
+          <ScalarProperty Name="JENIS_KELAMIN" ColumnName="JENIS_KELAMIN" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MATAKULIAHs">
+      <EntityTypeMapping TypeName="AKADEMIKModel.MATAKULIAH">
+        <MappingFragment StoreEntitySet="MATAKULIAH">
+          <ScalarProperty Name="KODE_MK" ColumnName="KODE_MK" />
+          <ScalarProperty Name="NAMA_MK" ColumnName="NAMA_MK" />
+          <ScalarProperty Name="SKS" ColumnName="SKS" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PERKULIAHANs">
+      <EntityTypeMapping TypeName="AKADEMIKModel.PERKULIAHAN">
+        <MappingFragment StoreEntitySet="PERKULIAHAN">
+          <ScalarProperty Name="NIM" ColumnName="NIM" />
+          <ScalarProperty Name="KODE_MK" ColumnName="KODE_MK" />
+          <ScalarProperty Name="NIP" ColumnName="NIP" />
+          <ScalarProperty Name="NILAI" ColumnName="NILAI" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

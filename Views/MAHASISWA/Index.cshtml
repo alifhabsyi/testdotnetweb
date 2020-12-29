@@ -1,0 +1,210 @@
+﻿
+@{
+    ViewBag.Title = "MAHASISWA";
+}
+<div class="form-group">
+    <div class="row">
+        <div class="col-sm-2">
+            <h3><a href="/Dosen/index">DOSEN</a></h3>
+        </div>
+        <div class="col-sm-2">
+            <h3><a href="/MAHASISWA/index">MAHASISWA</a></h3>
+        </div>
+        <div class="col-sm-2">
+            <h3><a href="/Matakuliah/index">MATAKULIAH</a></h3>
+        </div>
+        <div class="col-sm-2">
+            <h3><a href="/Perkuliahan/index">PERKULIAHAN</a></h3>
+        </div>
+    </div>
+
+</div>
+<h2>Mahasiswa</h2>
+<a class="btn btn-success" style="margin-bottom:10px" onclick="PopupForm('@Url.Action("AddOrEdit","MAHASISWA")')"><i class="fa fa-plus"></i> Add New</a>
+<table id="mahasiswaTable" class="table table-striped table-bordered" style="width:100%">
+    <thead>
+        <tr>
+            <th>NIM</th>
+            <th>NAMA MAHASISWA</th>
+            <th>TANGGAL LAHIR</th>
+            <th>ALAMAT</th>
+            <th>JENIS KELAMIN</th>
+            <th></th>
+        </tr>
+    </thead>
+</table>
+
+<link href="/plug/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+@section scripts{
+    <script src="/plug/jquery.dataTables.min.js"></script>
+    <script src="/plug/dataTables.bootstrap.min.js"></script>
+    <script src="cdn.datatables.net/plug-ins/1.10.21/dataRender/datetime.js"></script>
+    
+
+    <script>
+        // UMD
+        (function (factory) {
+            "use strict";
+
+            if (typeof define === 'function' && define.amd) {
+                // AMD
+                define(['jquery'], function ($) {
+                    return factory($, window, document);
+                });
+            }
+            else if (typeof exports === 'object') {
+                // CommonJS
+                module.exports = function (root, $) {
+                    if (!root) {
+                        root = window;
+                    }
+
+                    if (!$) {
+                        $ = typeof window !== 'undefined' ?
+                            require('jquery') :
+                            require('jquery')(root);
+                    }
+
+                    return factory($, root, root.document);
+                };
+            }
+            else {
+                // Browser
+                factory(jQuery, window, document);
+            }
+        }
+            (function ($, window, document) {
+
+
+                $.fn.dataTable.render.moment = function (from, to, locale) {
+                    // Argument shifting
+                    if (arguments.length === 1) {
+                        locale = 'en';
+                        to = from;
+                        from = 'YYYY-MM-DD';
+                    }
+                    else if (arguments.length === 2) {
+                        locale = 'en';
+                    }
+
+                    return function (d, type, row) {
+                        if (!d) {
+                            return type === 'sort' || type === 'type' ? 0 : d;
+                        }
+
+                        var m = window.moment(d, from, locale, true);
+
+                        // Order and type get a number value from Moment, everything else
+                        // sees the rendered value
+                        return m.format(type === 'sort' || type === 'type' ? 'x' : to);
+                    };
+                };
+
+
+            }));
+        var Popup, dataTable;
+        $(document).ready(function () {
+            // Convert ISO8601 dates into a simple human readable format
+
+            dataTable = $("#mahasiswaTable").DataTable({
+                "ajax": {
+                    "url": "/MAHASISWA/GetData",
+                    "type": "GET",
+                    "datatype": "json",
+
+
+                },
+
+                "columns": [
+                    { "data": "NIM" },
+                    { "data": "NAMA_MHS" },
+                    { "data": "TGL_LAHIR"},
+                    { "data": "ALAMAT" },
+                    { "data": "JENIS_KELAMIN" },
+                    {"data":"NIM" , "render" : function (data) {
+                        return "<a class='btn btn-default btn-sm' onclick=PopupForm('@Url.Action("AddOrEdit","MAHASISWA")/" + data + "')><i class='fa fa-pencil'></i> Edit</a><a class='btn btn-danger btn-sm' style='margin-left:5px' onclick=Delete('"+data+"')><i class='fa fa-trash'></i> Delete</a>";
+                    },
+                        "orderable": false,
+                        "searchable": false,
+                        "width":"150px"
+                    }
+
+                ],
+                
+                "language": {
+
+                    "emptyTable" : "No data found, Please click on <b>Add New</b> Button"
+                }
+            });
+        });
+
+        function PopupForm(url) {
+            var formDiv = $('<div/>');
+            $.get(url)
+            .done(function (response) {
+                formDiv.html(response);
+
+                Popup = formDiv.dialog({
+                    autoOpen: true,
+                    resizable: false,
+                    title: 'Fill MAHASISWA Details',
+                    height: 500,
+                    width: 700,
+                    close: function () {
+                        Popup.dialog('destroy').remove();
+                    }
+
+                });
+            });
+        }
+
+        function SubmitForm(form) {
+            //alert(form);
+            if ($(form).valid()) {
+                $.ajax({
+                    type: "POST",
+                    url: form.action,
+                    data: $(form).serialize(),
+                    success: function (data) {
+                        if (data.success) {
+                            Popup.dialog('close');
+                            dataTable.ajax.reload();
+
+                            $.notify(data.message, {
+                                globalPosition: "top center",
+                                className: "success"
+                            })
+
+                        }
+                    }
+                });
+            }
+            return false;
+        }
+
+        function Delete(id) {
+            if(confirm('Are You Sure to Delete this MAHASISWA Record ?'))
+            {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("Delete","MAHASISWA")/' + id,
+                    success: function (data) {
+                        if (data.success)
+                        {
+                            dataTable.ajax.reload();
+
+                            $.notify(data.message, {
+                                globalPosition: "top center",
+                                className: "success"
+                            })
+
+                        }
+                    }
+
+                });
+            }
+        }
+    </script>
+}
